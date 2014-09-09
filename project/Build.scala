@@ -2,14 +2,18 @@ import sbt._
 import Keys._
 
 object Build extends sbt.Build {
-  
+
   override lazy val settings = super.settings ++
     Seq(
       organization := "sh.robb",
-      name := "sbt-plugins"
+      name := "sbt-base"
     )
 
-  lazy val root = Project(id = "sbt-plugins", base = file("."))
+  import com.typesafe.sbt.SbtGit._
+
+  lazy val root = Project(id = "sbt-base", base = file("."))
+    .settings(versionWithGit: _*)
+    .settings(git.baseVersion in ThisBuild := "git")
     .settings(sbtPlugin := true)
     .settings(Dependencies.plugins: _*)
 
