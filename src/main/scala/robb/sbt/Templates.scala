@@ -36,7 +36,6 @@ object Templates {
   /* deployments */
   lazy val runnable = Deployments.runnable
   lazy val targz = Deployments.targz
-  lazy val docker = Deployments.docker
 
 
   private object Projects {
@@ -106,12 +105,6 @@ object Templates {
           previous.copy(`type` = "dist", extension = "tgz", classifier = Some("dist"))
         },
         dist <<= packageZipTarball in Universal
-      )
-
-
-    lazy val docker = packageArchetype.java_application ++
-      Seq(
-        dockerBaseImage in Docker := "dockerfile/java:oracle-java8"
       )
   }
 
