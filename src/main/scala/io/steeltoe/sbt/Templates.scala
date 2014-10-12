@@ -1,4 +1,4 @@
-package robb.sbt
+package io.steeltoe.sbt
 
 import sbt.Keys._
 import sbt._
