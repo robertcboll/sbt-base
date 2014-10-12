@@ -17,7 +17,7 @@ object MigrationsPlugin extends Plugin {
     baseDirectory in migrate := file("migrations"),
     managedClasspath in migrate := Classpaths.managedJars(Migration, Set("jar"), update.value),
     ivyConfigurations += Migration,
-    libraryDependencies += "org.mybatis" % "mybatis-migrations" % "3.2.0" % Migration.name,
+    libraryDependencies += "org.mybatis" % "mybatis-migrations" % "3.2.0" % Migration,
 
     migrate := {
       val path = (baseDirectory in migrate).value
