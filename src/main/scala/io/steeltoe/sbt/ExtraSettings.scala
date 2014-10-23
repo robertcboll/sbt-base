@@ -3,7 +3,7 @@ package io.steeltoe.sbt
 import sbt._
 import sbt.Keys._
 
-class ExtraSettings {
+object ExtraSettings {
 
   /* runnable */
   import spray.revolver.RevolverPlugin._
