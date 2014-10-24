@@ -1,6 +1,7 @@
 import sbt._
 import Keys._
 
+
 object Build extends sbt.Build {
 
   override lazy val settings = super.settings ++
@@ -24,4 +25,5 @@ object Build extends sbt.Build {
       addSbtPlugin("net.databinder.giter8" % "giter8-scaffold" % "0.6.6")
     )
   }
+
 }
