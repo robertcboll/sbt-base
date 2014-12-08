@@ -11,7 +11,6 @@ object Templates {
   def RootProject(id: String, deps: ClasspathDep[ProjectReference]*): Project = {
     Project(id = id, base = file("."))
       .settings(Projects.root: _*)
-      .settings(artifactory: _*)
       .dependsOn(deps.toList: _*)
   }
 
