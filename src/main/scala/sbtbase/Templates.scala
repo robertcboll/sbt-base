@@ -1,15 +1,17 @@
-package io.steeltoe.sbt
+package sbtbase
 
-import sbt.Keys._
 import sbt._
-import spray.revolver.RevolverPlugin.Revolver
+import Keys._
 
 
 object Templates {
 
+  import ToolSettings._
+
   def RootProject(id: String, deps: ClasspathDep[ProjectReference]*): Project = {
     Project(id = id, base = file("."))
       .settings(Projects.root: _*)
+      .settings(artifactory: _*)
       .dependsOn(deps.toList: _*)
   }
 
@@ -41,6 +43,7 @@ object Templates {
     LangProject(id, Lang.Scala, deps: _*)
   }
 
+
   object Lang {
 
     trait Language {
@@ -52,8 +55,9 @@ object Templates {
       override def settings = {
         Seq(
           autoScalaLibrary := false,
-          crossPaths := false
-        )
+          crossPaths := false,
+          javacOptions in (Compile,doc) += "-Xdoclint:none"
+        ) ++ checkstyle ++ findbugs
       }
 
       override def testlib(scope: Configuration = Test) = Seq(

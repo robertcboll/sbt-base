@@ -1,23 +1,19 @@
-package io.steeltoe.sbt
+package sbtbase.plugin
 
 import sbt._
 import Keys._
 
 
-object MigrationsPlugin extends Plugin {
+object Migrations extends Plugin {
 
-  object Keys {
-    lazy val Migration = config("migrations")
-    lazy val migrate = InputKey[Unit]("migrate", "Perform database migrations")
-  }
-
-  import Keys._
+  lazy val Migration = config("migrations")
+  lazy val migrate = InputKey[Unit]("migrate", "Perform database migrations")
 
   val migrations = Seq(
     baseDirectory in migrate := file("migrations"),
     managedClasspath in migrate := Classpaths.managedJars(Migration, Set("jar"), update.value),
     ivyConfigurations += Migration,
-    libraryDependencies += "org.mybatis" % "mybatis-migrations" % "3.2.0" % Migration,
+    libraryDependencies += "org.mybatis" % "mybatis-migrations" % "3.2.2-ONDECK" % Migration,
 
     migrate := {
       val path = (baseDirectory in migrate).value
