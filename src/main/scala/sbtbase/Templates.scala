@@ -126,7 +126,9 @@ object Templates {
 
     def it(lang: Lang.Language) = Defaults.itSettings ++ lang.testlib(IntegrationTest)
 
-    lazy val coverage = de.johoop.jacoco4sbt.JacocoPlugin.jacoco.settings
+    import de.johoop.jacoco4sbt.JacocoPlugin._
+
+    lazy val coverage = jacoco.settings ++ itJacoco.settings
   }
 }
 
