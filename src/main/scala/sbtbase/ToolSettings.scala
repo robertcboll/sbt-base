@@ -19,5 +19,23 @@ object ToolSettings {
 
   lazy val findbugs = FindBugs.findbugsSettings
 
+
+  /* version writer */
+  import com.typesafe.sbt.SbtGit.GitKeys._
+
+  import java.util.Properties
+  import java.io._
+
+  val writeVersionTask = TaskKey[Unit]("write-version")
+  val writeVersion = writeVersionTask := {
+    val props = new Properties()
+    props.setProperty("version", version.value)
+    props.setProperty("release", git.baseVersion.value)
+    props.setProperty("gitsha", gitHeadCommit.value.getOrElse(""))
+      
+    val filename = "target/_version.properties"
+    val out = new FileOutputStream(new File(filename))
+    props.store(out, "version properties") 
+  }
 }
 

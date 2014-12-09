@@ -91,7 +91,8 @@ object Templates {
       publishArtifact := false,
       publishLocal := {},
       publishTo := Some(Resolver.file("devnull", file("/dev/null"))),
-      showCurrentGitBranch
+      showCurrentGitBranch,
+      ToolSettings.writeVersion
     ) ++ versionWithGit
   }
 
