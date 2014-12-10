@@ -54,8 +54,8 @@ object Templates {
       override def settings = {
         Seq(
           autoScalaLibrary := false,
-          crossPaths := false,
-          javacOptions in (Compile,doc) += "-Xdoclint:none"
+          crossPaths := false
+          //javacOptions in (Compile,doc) += "-Xdoclint:none"
         ) ++ checkstyle ++ findbugs
       }
 
@@ -90,7 +90,7 @@ object Templates {
     lazy val root = Seq(
       publishArtifact := false,
       publishLocal := {},
-      publishTo := Some(Resolver.file("devnull", file("/dev/null"))),
+      publishTo := Some(Resolver.file("devnull", file("target/devnull"))),
       showCurrentGitBranch,
       ToolSettings.writeVersion
     ) ++ versionWithGit
