@@ -21,7 +21,8 @@ object ToolSettings {
 
 
   /* version writer */
-  import com.typesafe.sbt.SbtGit.GitKeys._
+  import com.typesafe.sbt.SbtGit._
+  import GitKeys._
 
   import java.util.Properties
   import java.io._
@@ -35,7 +36,7 @@ object ToolSettings {
       
     val filename = "target/_version.properties"
     val out = new FileOutputStream(new File(filename))
-    props.store(out, "version properties") 
+    props.store(out, " sbt generated version properties") 
   }
 }
 
