@@ -33,7 +33,8 @@ object ToolSettings {
     props.setProperty("version", version.value)
     props.setProperty("release", git.baseVersion.value)
     props.setProperty("gitsha", gitHeadCommit.value.getOrElse(""))
-      
+    
+    new File("target").mkdirs()
     val filename = "target/_version.properties"
     val out = new FileOutputStream(new File(filename))
     props.store(out, " sbt generated version properties") 
