@@ -89,6 +89,7 @@ object Templates {
 
     lazy val root = Seq(
       publishArtifact := false,
+      publish := {},
       publishLocal := {},
       publishTo := Some(Resolver.file("devnull", file("target/devnull"))),
       showCurrentGitBranch,
