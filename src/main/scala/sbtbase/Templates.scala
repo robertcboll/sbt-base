@@ -122,7 +122,11 @@ object Templates {
 
   private object Tests {
 
-    def all(lang: Lang.Language) = it(lang) ++ unit(lang) ++ coverage
+    def all(lang: Lang.Language) = it(lang) ++ unit(lang) ++ coverage ++ Seq(
+      testOptions in ThisBuild <+= (target in Test) map {
+        t => sbt.Tests.Argument("-o", "-u", t + "/test-reports")
+      }
+    )
 
     def unit(lang: Lang.Language) = lang.testlib(Test)
 
