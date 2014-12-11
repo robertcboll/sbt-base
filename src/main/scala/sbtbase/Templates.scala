@@ -124,7 +124,7 @@ object Templates {
 
     def all(lang: Lang.Language) = it(lang) ++ unit(lang) ++ coverage ++ Seq(
       testOptions in ThisBuild <+= (target in Test) map {
-        t => sbt.Tests.Argument("-o", "-u", t + "/test-reportss")
+        t => sbt.Tests.Argument("-o", "-u", t + "/junit-test-reports")
       }
     )
 
