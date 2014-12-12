@@ -56,7 +56,7 @@ object Templates {
           autoScalaLibrary := false,
           crossPaths := false
           //javacOptions in (Compile,doc) += "-Xdoclint:none"
-        ) ++ checkstyle ++ findbugs
+        ) ++ findbugs ++ style
       }
 
       override def testlib(scope: Configuration = Test) = Seq(

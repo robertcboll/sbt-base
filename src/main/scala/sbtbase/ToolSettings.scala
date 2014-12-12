@@ -10,8 +10,8 @@ object ToolSettings {
   import com.etsy.sbt.Checkstyle._
   import CheckstyleTasks._
 
-  lazy val checkstyle = checkstyleSettings ++
-    Seq(checkstyleConfig := file("project/.checkstyle.xml"))
+  lazy val style = checkstyleSettings ++
+    Seq(checkstyleConfig := file("project/codequality/checkstyle.xml"))
 
 
   /* findbugs */
