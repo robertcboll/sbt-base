@@ -71,7 +71,7 @@ object Templates {
       override def settings = {
         Seq(
           scalacOptions := Seq("-encoding", "UTF-8", "-deprecation", "-feature", "-unchecked", "-Xlint"),
-          testOptions in ThisBuild <+= (target in Test) map {
+          testOptions <+= (target in Test) map {
             t => sbt.Tests.Argument("-o", "-u", s"$t/test-reports")
           }
         )
