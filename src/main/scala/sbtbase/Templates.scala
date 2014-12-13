@@ -54,8 +54,8 @@ object Templates {
       override def settings = {
         Seq(
           autoScalaLibrary := false,
-          crossPaths := false
-          //javacOptions in (Compile,doc) += "-Xdoclint:none"
+          crossPaths := false,
+          javacOptions += "-Xlint:unchecked"
         ) ++ findbugs ++ style
       }
 
@@ -70,7 +70,10 @@ object Templates {
     object Scala extends Language {
       override def settings = {
         Seq(
-          scalacOptions := Seq("-encoding", "UTF-8", "-deprecation", "-feature", "-unchecked", "-Xlint")
+          scalacOptions := Seq("-encoding", "UTF-8", "-deprecation", "-feature", "-unchecked", "-Xlint"),
+          testOptions in ThisBuild <+= (target in Test) map {
+            t => sbt.Tests.Argument("-o", "-u", s"$t/test-reports")
+          }
         )
       }
 
@@ -124,11 +127,7 @@ object Templates {
 
   private object Tests {
 
-    def all(lang: Lang.Language) = it(lang) ++ unit(lang) ++ coverage ++ Seq(
-      //testOptions in ThisBuild <+= (target in Test) map {
-      //  t => sbt.Tests.Argument("-o", "-u", s"$t/test-reports")
-      //}
-    )
+    def all(lang: Lang.Language) = it(lang) ++ unit(lang) ++ coverage
 
     def unit(lang: Lang.Language) = lang.testlib(Test)
 
