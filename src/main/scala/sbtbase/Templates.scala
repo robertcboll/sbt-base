@@ -55,7 +55,7 @@ object Templates {
         Seq(
           autoScalaLibrary := false,
           crossPaths := false,
-          javacOptions ++= Seq("-Xlint:unchecked", "-Xlint:deprecation")
+          javacOptions in Compile ++= Seq("-Xlint:unchecked", "-Xlint:deprecation")
         ) ++ findbugs ++ style
       }
 
