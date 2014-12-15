@@ -31,7 +31,7 @@ object Build extends sbt.Build {
       addSbtPlugin("com.eed3si9n" % "sbt-unidoc" % "0.3.1"),
       addSbtPlugin("com.typesafe.sbt" % "sbt-site" % "0.8.1"),
 
-      addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.0.0-M3"),
+      addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "0.8.0-RC2"),
 
       addSbtPlugin("de.johoop" % "jacoco4sbt" % "2.1.6"),
       addSbtPlugin("de.johoop" % "findbugs4sbt" % "1.3.0"), // not java8 compatible
