@@ -24,8 +24,8 @@ object ToolSettings {
   import com.typesafe.sbt.SbtGit._
   import GitKeys._
 
-  import com.typesafe.sbt.packager.Keys._
-  import com.typesafe.sbt.packager.linux.LinuxPlugin.autoImport._
+  import com.typesafe.sbt.SbtNativePackager._
+  import NativePackagerKeys._
 
   import java.util.Properties
   import java.io._
