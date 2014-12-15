@@ -55,7 +55,10 @@ object Templates {
         Seq(
           autoScalaLibrary := false,
           crossPaths := false,
-          javacOptions in (Compile,compile) ++= Seq("-Xlint:unchecked", "-Xlint:deprecation")
+          javacOptions in (Compile,compile) ++= Seq("-Xlint:unchecked", "-Xlint:deprecation"),
+          testOptions <+= (target in Test) map {
+            t => sbt.Tests.Argument(TestFrameworks.JUnit, "-v")
+          }
         ) ++ findbugs ++ style
       }
 
