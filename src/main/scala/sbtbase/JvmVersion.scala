@@ -12,10 +12,14 @@ object JvmVersion {
     )
 
     jvmVersion match {
-      case v if jvmVersion.startsWith("1.7") => common
-      case v if jvmVersion.startsWith("1.8") => common ++ Seq(
-        javacOptions in (Compile, doc) += "-Xdoclint:none"
-      )
+      case v if jvmVersion.startsWith("1.7") => 
+        println("setting to common only")
+        common
+      case v if jvmVersion.startsWith("1.8") => 
+        println("setting to doclint plus common")
+        common ++ Seq(
+          javacOptions in (Compile, doc) += "-Xdoclint:none"
+        )
     }
   }
 }
