@@ -10,8 +10,9 @@ object JvmVersion {
       scalacOptions in (Compile, compile) += s"-target:jvm-$jvmVersion",
       javacOptions in (Compile, compile) ++= Seq("-source", jvmVersion, "-target", jvmVersion)
     )
-
-    jvmVersion match {
+    
+    val runtimeVersion = sys.props.get("java.version")
+    runtimeVersion match {
       case v if jvmVersion.startsWith("1.7") => 
         println("setting to common only")
         common
