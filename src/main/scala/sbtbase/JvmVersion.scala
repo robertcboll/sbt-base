@@ -11,10 +11,7 @@ object JvmVersion {
       javacOptions in (Compile, compile) ++= Seq("-source", jvmVersion, "-target", jvmVersion)
     )
     
-    val runtimeVersion = sys.props.get("java.version")
-    println("the runtimeVersion is " + runtimeVersion)
-    
-    runtimeVersion match {
+    sys.props.get("java.version") match {
       case Some(vers) =>
         vers match {
           case v if v.startsWith("1.7") => common
