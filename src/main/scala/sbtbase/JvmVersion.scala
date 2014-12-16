@@ -17,12 +17,8 @@ object JvmVersion {
     runtimeVersion match {
       case Some(vers) =>
         vers match {
-          case v if v.startsWith("1.7") => 
-            println("setting to common only")
-            common
-          case v if v.startsWith("1.8") => 
-            println("setting to doclint plus common")
-            common ++ Seq(javacOptions in (Compile, doc) += "-Xdoclint:none")
+          case v if v.startsWith("1.7") => common
+          case v if v.startsWith("1.8") => common ++ Seq(javacOptions in (Compile, doc) += "-Xdoclint:none")
         }
       case _ => common
     }
