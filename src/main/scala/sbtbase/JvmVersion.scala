@@ -12,11 +12,12 @@ object JvmVersion {
     )
     
     val runtimeVersion = sys.props.get("java.version")
+    println("the runtimeVersion is " + runtimeVersion)
     runtimeVersion match {
-      case v if jvmVersion.startsWith("1.7") => 
+      case v if v.startsWith("1.7") => 
         println("setting to common only")
         common
-      case v if jvmVersion.startsWith("1.8") => 
+      case v if v.startsWith("1.8") => 
         println("setting to doclint plus common")
         common ++ Seq(
           javacOptions in (Compile, doc) += "-Xdoclint:none"
