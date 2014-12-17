@@ -11,7 +11,6 @@ object Tests {
 
   def all(lang: Language) = tests(lang, Test) ++ 
                                  tests(lang, IntegrationTest) ++ 
-                                 tests(lang, AcceptanceTest) ++
                                  Defaults.itSettings ++ coverage
 
   def tests(lang: Language, scope: Configuration) = {
