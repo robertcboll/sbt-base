@@ -7,7 +7,7 @@ object Tests {
 
   import Langs._
 
-  val AcceptanceTest = config("acceptance") extend(IntegrationTest)
+  val AcceptanceTest = config("at") extend(IntegrationTest)
 
   def all(lang: Language) = tests(lang, Test) ++ 
                                  tests(lang, IntegrationTest) ++ 
