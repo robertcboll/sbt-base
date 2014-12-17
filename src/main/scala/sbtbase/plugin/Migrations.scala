@@ -58,3 +58,4 @@ object Migrations extends Plugin {
     }
   }
 }
+
