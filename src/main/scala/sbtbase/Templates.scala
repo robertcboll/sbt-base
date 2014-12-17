@@ -18,12 +18,15 @@ object Templates {
       .settings(Docs.docs: _*)
   }
 
+  import Tests.AcceptanceTest
+
   def LangProject(id: String,
                   lang: Language,
                   deps: ClasspathDep[ProjectReference]*): Project = {
     Project(id = id, base = file(id))
       .dependsOn(deps.toList: _*)
       .configs(IntegrationTest)
+      .configs(AcceptanceTest)
       .settings(lang.settings: _*)
       .settings(lang.tests: _*)
   }
