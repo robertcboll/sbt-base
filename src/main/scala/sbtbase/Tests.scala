@@ -7,6 +7,8 @@ object Tests {
 
   import Langs._
 
+  val AcceptanceTest = config("acceptance") extend(IntegrationTest)
+
   def all(lang: Language) = tests(lang, Test) ++ 
                                  tests(lang, IntegrationTest) ++ 
                                  Defaults.itSettings ++ coverage
