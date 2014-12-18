@@ -10,23 +10,24 @@ object Migrations extends Plugin {
 
   val migrations = Seq(
     baseDirectory in migrate := file("migrations"),
+    mainClass in migrate := Some("migrations.Migrator"),
+    version in migrate := "3.2.4-ONDECK",
     managedClasspath in migrate := Classpaths.managedJars(Migration, Set("jar"), update.value),
     ivyConfigurations += Migration,
-    libraryDependencies += "org.mybatis" % "mybatis-migrations" % "3.2.4-ONDECK" % Migration,
+    libraryDependencies += "org.mybatis" % "mybatis-migrations" % (version in migrate).value % Migration,
 
     migrate := {
       val path = (baseDirectory in migrate).value
       val args: Seq[String] = Def.spaceDelimited("<arg>").parsed
       val cp = (managedClasspath in migrate).value
+      val main = (mainClass in migrate).value getOrElse ""
 
-      Migrator(streams.value, outputStrategy.value, path.getPath, cp)
+      Migrator(streams.value, main, outputStrategy.value, path.getPath, cp)
         .run(args)
     }
   )
 
-  class Migrator(log: Logger, outputStrategy: Option[OutputStrategy], basedir: String, classpath: Seq[File]) {
-
-    val main = "migrations.Migrator"
+  class Migrator(log: Logger, main: String, outputStrategy: Option[OutputStrategy], basedir: String, classpath: Seq[File]) {
 
     def run(args: Seq[String]): Unit = {
 
@@ -52,8 +53,8 @@ object Migrations extends Plugin {
   }
 
   object Migrator {
-    def apply(streams: TaskStreams, output: Option[OutputStrategy], base: String, cp: Classpath): Migrator = {
-      new Migrator(log = streams.log, outputStrategy = output, basedir = base, classpath = cp.files)
+    def apply(streams: TaskStreams, mainClass: String, output: Option[OutputStrategy], base: String, cp: Classpath): Migrator = {
+      new Migrator(log = streams.log, main = mainClass, outputStrategy = output, basedir = base, classpath = cp.files)
     }
   }
 }
