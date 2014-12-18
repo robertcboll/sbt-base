@@ -26,7 +26,7 @@ object Migrations extends Plugin {
 
   class Migrator(log: Logger, outputStrategy: Option[OutputStrategy], basedir: String, classpath: Seq[File]) {
 
-    val main = "org.apache.ibatis.migration.Migrator"
+    val main = "migrations.Migrator"
 
     def run(args: Seq[String]): Unit = {
 
