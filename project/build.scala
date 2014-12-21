@@ -11,13 +11,15 @@ object Build extends sbt.Build {
     Seq(
       organization := "sbtbase",
       name := "sbt-base",
-      publishMavenStyle := false
+      publishMavenStyle := false,
+      resolvers += Resolver.mavenLocal
     )
 
 
   lazy val root = Project(id = "sbt-base", base = file("."))
     .settings(sbtPlugin := true)
     .settings(Dependencies.plugins: _*)
+    .settings(libraryDependencies += "com.ondeck.migrations" % "migrations-cli" % "0.4-6aa63f79868737f75b388ae2a6ad814ac7b97474")
     .settings(dependencyOverrides += "org.clapper" %% "scalasti" % "2.0.0")
 
   object Dependencies {
