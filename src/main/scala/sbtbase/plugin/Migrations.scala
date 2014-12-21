@@ -9,19 +9,17 @@ object Migrations extends Plugin {
 
   val migrations = Seq(
     baseDirectory in migrate := file("migrations"),
-    version in migrate := "0.4",
-    libraryDependencies += "com.ondeck.migrations" % "migrations-cli" % (version in migrate).value,
 
     migrate := {
       val path = (baseDirectory in migrate).value
-      val args: Seq[String] = Def.spaceDelimited("<arg>").parsed
 
-      val added: Seq[String] = Seq("", "")
-      val fullargs: Seq[String] = added ++ args
+      val args: Array[String] = Def.spaceDelimited("<arg>").parsed.toArray
+      val added: Array[String] = Array("-p", path.getPath)
+      val fullargs: Array[String] = added ++ args
 
       import com.ondeck.migrations.cli._
 
-      CommandLine.main(fullargs.mkString)
+      CommandLine.main(fullargs)
     }
   )
 }
