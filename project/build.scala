@@ -19,7 +19,7 @@ object Build extends sbt.Build {
   lazy val root = Project(id = "sbt-base", base = file("."))
     .settings(sbtPlugin := true)
     .settings(Dependencies.plugins: _*)
-    .settings(libraryDependencies += "com.ondeck.migrations" % "migrations-cli" % "0.4-a94fa08de985cdfd6cd908f0f4eba461d101992b")
+    .settings(libraryDependencies += "com.ondeck.migrations" % "migrations-cli" % "0.4-b903764f1f0cec8b458388269fa989c225757c85")
     .settings(dependencyOverrides += "org.clapper" %% "scalasti" % "2.0.0")
 
   object Dependencies {
