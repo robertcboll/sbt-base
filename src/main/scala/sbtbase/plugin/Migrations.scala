@@ -10,11 +10,11 @@ object Migrations extends Plugin {
 
   val migrations = Seq(
     baseDirectory in migrate := file("migrations"),
-    mainClass in migrate := Some("migrations.Migrator"),
-    version in migrate := "3.2.4-ONDECK",
+    mainClass in migrate := Some("migrations.cli.CommandLine"),
+    version in migrate := "0.4",
     managedClasspath in migrate := Classpaths.managedJars(Migration, Set("jar"), update.value),
     ivyConfigurations += Migration,
-    libraryDependencies += "org.mybatis" % "mybatis-migrations" % (version in migrate).value % Migration,
+    libraryDependencies += "com.ondeck.migrations" % "migrations-cli" % (version in migrate).value % Migration,
 
     migrate := {
       val path = (baseDirectory in migrate).value
