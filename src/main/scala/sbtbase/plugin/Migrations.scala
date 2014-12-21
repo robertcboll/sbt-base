@@ -12,8 +12,7 @@ object Migrations extends Plugin {
     baseDirectory in migrate := file("migrations"),
     mainClass in migrate := Some("migrations.cli.CommandLine"),
     version in migrate := "0.4",
-    managedClasspath in migrate := Classpaths.managedJars(Migration, Set("*"), update.value),
-    //managedClasspath in migrate := (dependencyClasspath in Compile).value.files,
+    managedClasspath in migrate := Classpaths.managedJars(Migration, Set("jar", "zip"), update.value),
     ivyConfigurations += Migration,
     libraryDependencies += "com.ondeck.migrations" % "migrations-cli" % (version in migrate).value % Migration,
 
