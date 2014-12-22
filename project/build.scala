@@ -28,6 +28,7 @@ object Build extends sbt.Build {
       addSbtPlugin("io.spray" % "sbt-revolver" % "0.7.2"),
 
       addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "0.6.4"),
+      addSbtPlugin("net.databinder.giter8" % "giter8-scaffold" % "0.6.6"),
 
       addSbtPlugin("com.eed3si9n" % "sbt-unidoc" % "0.3.1"),
       addSbtPlugin("com.typesafe.sbt" % "sbt-site" % "0.8.1"),
