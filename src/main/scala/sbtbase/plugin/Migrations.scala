@@ -11,23 +11,24 @@ object Migrations extends Plugin {
   val migrations = inConfig(Migration)(Defaults.configSettings) ++ Seq(
     ivyConfigurations += Migration,
     
-    baseDirectory in Migration := file("migrations"),
-    mainClass in Migration := Some("com.ondeck.migrations.cli.CommandLine"),
-    version in Migration := "0.4",
+    baseDirectory in migrate := file("migrations"),
+    mainClass in migrate := Some("com.ondeck.migrations.cli.CommandLine"),
+    version in migrate := "0.4",
 
     fullClasspath in migrate <<= fullClasspath in Migration,
 
-    libraryDependencies += "com.ondeck.migrations" % "migrations-cli" % (version in Migration).value % Migration,
+    libraryDependencies += "com.ondeck.migrations" % "migrations-cli" % (version in migrate).value % Migration,
 
     migrate := {
       java.util.logging.Logger.getLogger("").setLevel(java.util.logging.Level.SEVERE)
 
-      val main = (mainClass in Migration).value getOrElse ""
-      val path = (baseDirectory in Migration).value
+      val main = (mainClass in migrate).value getOrElse ""
+      val base = (baseDirectory in migrate).value
+      val cp = (fullClasspath in migrate).value
+      
       val args: Seq[String] = Def.spaceDelimited("<arg>").parsed
-      val cp = (fullClasspath in Migration).value
 
-      Migrator(streams.value, outputStrategy.value, path.getPath, cp, main)
+      Migrator(streams.value, outputStrategy.value, base.getPath, cp, main)
         .run(args)
     }
   )
