@@ -6,6 +6,7 @@ import Keys._
 object Migrations extends Plugin {
 
   lazy val migrate = InputKey[Unit]("migrate", "Perform database migrations")
+  lazy val configFile = SettingKey[Option[String]]("configFile", "The migrations config file.")
   lazy val Migration = config("migrations")
 
   val migrations = inConfig(Migration)(Defaults.configSettings) ++ Seq(
@@ -14,6 +15,7 @@ object Migrations extends Plugin {
     baseDirectory in migrate := file("migrations"),
     mainClass in migrate := Some("com.ondeck.migrations.cli.CommandLine"),
     version in migrate := "0.4",
+    configFile in migrate := Some("migrations.conf"),
 
     fullClasspath in migrate <<= fullClasspath in Migration,
 
@@ -26,7 +28,8 @@ object Migrations extends Plugin {
       val base = (baseDirectory in migrate).value
       val cp = (fullClasspath in migrate).value
       
-      val args: Seq[String] = Def.spaceDelimited("<arg>").parsed
+      val input: Seq[String] = Def.spaceDelimited("<arg>").parsed
+      val args: Seq[String] = input ++ Seq("-c", (configFile in migrate).value getOrElse "migrations.conf")
 
       Migrator(streams.value, outputStrategy.value, base.getPath, cp, main)
         .run(args)
