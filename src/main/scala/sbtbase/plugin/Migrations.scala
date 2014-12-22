@@ -13,10 +13,9 @@ object Migrations extends Plugin {
     
     baseDirectory in Migration := file("migrations"),
     mainClass in Migration := Some("com.ondeck.migrations.cli.CommandLine"),
+    version in Migration := "0.4",
 
-    //managedClasspath in migrate := Classpaths.managedJars(Migration, Set("jar"), update.value),
-
-    libraryDependencies += "com.ondeck.migrations" % "migrations-cli" % (version in migrate).value % Migration,
+    libraryDependencies += "com.ondeck.migrations" % "migrations-cli" % (version in Migration).value % Migration,
 
     migrate := {
       java.util.logging.Logger.getLogger("").setLevel(java.util.logging.Level.SEVERE)
