@@ -11,15 +11,16 @@ object Build extends sbt.Build {
     Seq(
       organization := "sbtbase",
       name := "sbt-base",
-      publishMavenStyle := false,
-      resolvers += Resolver.mavenLocal
+      publishMavenStyle := false
     )
 
+
+  lazy val giter8 = RootProject(uri("https://github.com/robertcboll/giter8.git#v0.6.7"))
 
   lazy val root = Project(id = "sbt-base", base = file("."))
     .settings(sbtPlugin := true)
     .settings(Dependencies.plugins: _*)
-    .settings(dependencyOverrides += "org.clapper" %% "scalasti" % "2.0.0")
+    .dependsOn(giter8)
 
   object Dependencies {
 
@@ -27,7 +28,6 @@ object Build extends sbt.Build {
       addSbtPlugin("io.spray" % "sbt-revolver" % "0.7.2"),
 
       addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "0.6.4"),
-      //addSbtPlugin("net.databinder.giter8" % "giter8-scaffold" % "0.6.6"),
 
       addSbtPlugin("com.eed3si9n" % "sbt-unidoc" % "0.3.1"),
       addSbtPlugin("com.typesafe.sbt" % "sbt-site" % "0.8.1"),
