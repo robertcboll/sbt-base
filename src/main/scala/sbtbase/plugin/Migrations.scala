@@ -8,7 +8,7 @@ object Migrations extends Plugin {
   lazy val migrate = InputKey[Unit]("migrate", "Perform database migrations")
   lazy val Migration = config("migrations")
 
-  val migrations = Seq(
+  val migrations = inConfig(Migration)(Defaults.configSettings) ++ Seq(
     ivyConfigurations += Migration,
     
     baseDirectory in Migration := file("migrations"),
