@@ -15,6 +15,8 @@ object Migrations extends Plugin {
     mainClass in Migration := Some("com.ondeck.migrations.cli.CommandLine"),
     version in Migration := "0.4",
 
+    fullClasspath in migrate <<= fullClasspath in Migration,
+
     libraryDependencies += "com.ondeck.migrations" % "migrations-cli" % (version in Migration).value % Migration,
 
     migrate := {
