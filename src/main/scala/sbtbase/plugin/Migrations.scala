@@ -24,7 +24,7 @@ object Migrations extends Plugin {
       val main = (mainClass in Migration).value getOrElse ""
       val path = (baseDirectory in Migration).value
       val args: Seq[String] = Def.spaceDelimited("<arg>").parsed
-      val cp = (managedClasspath in Migration).value
+      val cp = (fullClasspath in Migration).value
 
       Migrator(streams.value, outputStrategy.value, path.getPath, cp, main)
         .run(args)
