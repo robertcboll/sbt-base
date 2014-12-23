@@ -30,9 +30,12 @@ object Migrations extends Plugin {
       
       val input: Seq[String] = Def.spaceDelimited("<arg>").parsed
       val args: Seq[String] = input ++ Seq("-c", (configFile in migrate).value getOrElse "migrations.conf")
+      
+      val mig = Migrator(streams.value, outputStrategy.value, base.getPath, cp, main)
 
-      Migrator(streams.value, outputStrategy.value, base.getPath, cp, main)
-        .run(args)
+      val prop: Option[String] = sys.props.get("config.env")
+      if (!prop.isEmpty) mig.run(args ++ Seq("-e", prop.get))        
+      else mig.run(args)
     }
   )
 

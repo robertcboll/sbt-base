@@ -11,16 +11,14 @@ object Build extends sbt.Build {
     Seq(
       organization := "sbtbase",
       name := "sbt-base",
-      publishMavenStyle := false
+      publishMavenStyle := false,
+      scalacOptions := Seq("-encoding", "UTF-8", "-deprecation", "-feature", "-unchecked", "-Xlint")
     )
-
-
-  lazy val giter8 = RootProject(uri("https://github.com/robertcboll/giter8.git#v0.6.7"))
 
   lazy val root = Project(id = "sbt-base", base = file("."))
     .settings(sbtPlugin := true)
+    .settings(dependencyOverrides += "org.clapper" %% "scalasti" % "2.0.0")
     .settings(Dependencies.plugins: _*)
-    .dependsOn(giter8)
 
   object Dependencies {
 
