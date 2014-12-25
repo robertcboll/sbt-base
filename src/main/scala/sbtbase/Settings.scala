@@ -5,15 +5,13 @@ import Keys._
 
 object Settings {
 
-  import Langs._
+  import Langs.{Java, Scala}
 
-  def common = {
+  lazy val common = {
     Tools.style ++ Tools.findbugs
   }
 
   def all(lang: Language) = {
-    val common = Tools.style ++ Tools.findbugs
-
     lang match {
       case Java => common ++ Seq(
         autoScalaLibrary := false,

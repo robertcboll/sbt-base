@@ -5,15 +5,19 @@ import Keys._
 
 object Tests {
 
-  import Langs._
+  object Keys {
+    lazy val AcceptanceTest = config("at").extend(Test)
+  }
 
-  val AcceptanceTest = config("at").extend(Test)
+  import Keys.AcceptanceTest
+
+  import Langs.{Java, Scala}
 
   def all(lang: Language) = tests(lang, Test) ++ 
-                                 tests(lang, IntegrationTest) ++
-                                 tests(lang, AcceptanceTest) ++
-                                 inConfig(AcceptanceTest)(Defaults.testSettings) ++
-                                 Defaults.itSettings ++ coverage
+                            tests(lang, IntegrationTest) ++
+                            tests(lang, AcceptanceTest) ++
+                            inConfig(AcceptanceTest)(Defaults.testSettings) ++
+                            Defaults.itSettings ++ coverage
 
   def tests(lang: Language, scope: Configuration) = {
     lang match {
@@ -37,7 +41,9 @@ object Tests {
     }
   }
      
-  import de.johoop.jacoco4sbt.JacocoPlugin._
+  import de.johoop.jacoco4sbt.{JacocoPlugin => Jacoco}
+  import Jacoco.{jacoco, itJacoco}
+
   lazy val coverage = jacoco.settings ++ itJacoco.settings
 }
 

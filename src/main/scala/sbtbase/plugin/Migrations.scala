@@ -5,17 +5,21 @@ import Keys._
 
 object Migrations extends Plugin {
 
-  lazy val migrate = InputKey[Unit]("migrate", "Perform database migrations")
-  lazy val configFile = SettingKey[Option[String]]("configFile", "The migrations config file.")
-  lazy val Migration = config("migrations")
+  object Keys {
+    val migrate = InputKey[Unit]("migrate", "Perform database migrations")
+    val configFile = SettingKey[Option[String]]("configFile", "The migrations config file.")
+    val Migration = config("migrations")
+  }
 
-  val migrations = inConfig(Migration)(Defaults.configSettings) ++ Seq(
-    ivyConfigurations += Migration,
-    
-    baseDirectory in migrate := file("migrations"),
-    mainClass in migrate := Some("com.ondeck.migrations.cli.CommandLine"),
+  import Keys._
+
+  lazy val migrations = inConfig(Migration)(Defaults.configSettings) ++ Seq(
+    ivyConfigurations += Migration, 
+
     version in migrate := "0.4",
+    baseDirectory in migrate := file("migrations"),
     configFile in migrate := Some("migrations.conf"),
+    mainClass in migrate := Some("com.ondeck.migrations.cli.CommandLine"),
 
     fullClasspath in migrate <<= fullClasspath in Migration,
 
