@@ -7,10 +7,12 @@ object Templates {
 
   import Tests.Keys.AcceptanceTest
   import Langs.{Java, Scala}
+  import plugin.Migrations
 
   def RootProject(id: String, deps: ClasspathDep[ProjectReference]*): Project = {
     Project(id = id, base = file("."))
       .settings(Projects.root: _*)
+      .settings(Migrations.migrations: _*)
       .dependsOn(deps.toList: _*)
   }
 
@@ -21,13 +23,10 @@ object Templates {
       .settings(Docs.docs: _*)
   }
 
-  import plugin.Migrations
-
   def MigrationsProject(id: String, 
                         deps: ClasspathDep[ProjectReference]*): Project = {
     Project(id = id, base = file(id))
       .dependsOn(deps.toList: _*)
-      .settings(Migrations.migrations: _*)
   }
 
   def LangProject(id: String,
