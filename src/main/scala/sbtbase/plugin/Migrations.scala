@@ -25,8 +25,6 @@ object Migrations extends Plugin {
     libraryDependencies += "com.ondeck.migrations" % "migrations-cli" % (version in migrate).value % Migration,
 
     migrate := {
-      java.util.logging.Logger.getLogger("").setLevel(java.util.logging.Level.SEVERE)
-
       val main = (mainClass in migrate).value getOrElse ""
       val base = (baseDirectory in migrate).value
       val cp = (fullClasspath in migrate).value
