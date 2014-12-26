@@ -12,7 +12,6 @@ object Templates {
   def RootProject(id: String, deps: ClasspathDep[ProjectReference]*): Project = {
     Project(id = id, base = file("."))
       .settings(Projects.root: _*)
-      .settings(Migrations.migrations: _*)
       .dependsOn(deps.toList: _*)
   }
 
@@ -26,6 +25,7 @@ object Templates {
   def MigrationsProject(id: String, 
                         deps: ClasspathDep[ProjectReference]*): Project = {
     Project(id = id, base = file(id))
+      .settings(Migrations.migrations: _*)
       .dependsOn(deps.toList: _*)
   }
 

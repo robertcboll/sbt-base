@@ -17,7 +17,7 @@ object Migrations extends Plugin {
     ivyConfigurations += Migration, 
 
     version in migrate := "0.4",
-    baseDirectory in migrate := file("migrations"),
+    baseDirectory in migrate := file("."),
     configFile in migrate := Some("migrations.conf"),
     mainClass in migrate := Some("com.ondeck.migrations.cli.CommandLine"),
 
