@@ -21,6 +21,15 @@ object Templates {
       .settings(Docs.docs: _*)
   }
 
+  import plugin.Migrations
+
+  def MigrationsProject(id: String, 
+                        deps: ClasspathDep[ProjectReference]*): Project = {
+    Project(id = id, base = file(id))
+      .dependsOn(deps.toList: _*)
+      .settings(Migrations.migrations: _*)
+  }
+
   def LangProject(id: String,
                   lang: Language,
                   deps: ClasspathDep[ProjectReference]*): Project = {
