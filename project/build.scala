@@ -17,7 +17,7 @@ object Build extends sbt.Build {
 
   lazy val root = Project(id = "sbt-base", base = file("."))
     .settings(sbtPlugin := true)
-    //.settings(dependencyOverrides += "org.clapper" %% "scalasti" % "2.0.0")
+    .settings(dependencyOverrides += "org.clapper" %% "scalasti" % "2.0.0")
     .settings(Dependencies.plugins: _*)
 
   object Dependencies {
