@@ -19,7 +19,7 @@ object Templates {
                  deps: ClasspathDep[ProjectReference]*): Project = {
     Project(id = id, base = file(id))
       .dependsOn(deps.toList: _*)
-      .settings(Docs.docs: _*)
+      .settings(Docs.settings: _*)
   }
 
   def MigrationsProject(id: String, 
@@ -27,16 +27,6 @@ object Templates {
     Project(id = id, base = file(id))
       .settings(Migrations.migrations: _*)
       .dependsOn(deps.toList: _*)
-  }
-
-  def LangProject(id: String,
-                  lang: Language,
-                  deps: ClasspathDep[ProjectReference]*): Project = {
-    Project(id = id, base = file(id))
-      .dependsOn(deps.toList: _*)
-      .configs(IntegrationTest, AcceptanceTest)
-      .settings(lang.settings: _*)
-      .settings(lang.tests: _*)
   }
 
   def JavaProject(id: String,
@@ -49,17 +39,27 @@ object Templates {
     LangProject(id, Scala, deps: _*)
   }
 
+  def LangProject(id: String,
+                  lang: Language,
+                  deps: ClasspathDep[ProjectReference]*): Project = {
+    Project(id = id, base = file(id))
+      .dependsOn(deps.toList: _*)
+      .configs(IntegrationTest, AcceptanceTest)
+      .settings(lang.settings: _*)
+      .settings(lang.tests: _*)
+  }
+
   private object Projects {
 
     import com.typesafe.sbt.{SbtGit => Git}
 
-    lazy val root = Seq(
+    lazy val root: Seq[sbt.Def.Setting[_]] = Seq(
       publishArtifact := false,
       publish := {},
       publishLocal := {},
       publishTo := Some(Resolver.file("devnull", file("target/devnull"))),
       Git.showCurrentGitBranch
-    ) ++ Git.versionWithGit ++ Packaging.all
+    ) ++ Git.versionWithGit ++ Packaging.settings
   }
 }
 

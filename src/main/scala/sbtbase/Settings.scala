@@ -11,7 +11,7 @@ object Settings {
     Tools.style ++ Tools.findbugs
   }
 
-  def all(lang: Language) = {
+  def settings(lang: Language) = {
     lang match {
       case Java => common ++ Seq(
         autoScalaLibrary := false,

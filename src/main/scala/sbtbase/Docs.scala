@@ -8,8 +8,8 @@ object Docs {
   import java.util.Properties
 
   object Keys {
-    val siteprops = SettingKey[Properties]("siteprops")
-    val writeSiteprops = TaskKey[Unit]("write-siteprops")
+    val siteProps = SettingKey[Properties]("siteprops")
+    val writeSiteProps = TaskKey[Unit]("write-siteprops")
   }
 
   import Keys._
@@ -25,7 +25,27 @@ object Docs {
   import Unidoc._
   import UnidocKeys._
 
-  lazy val sitepropsSetting = siteprops := {
+  lazy val settings = {
+    Unidoc.scalaJavaUnidocSettings ++
+    site.settings ++ site.publishSite() ++
+    site.addMappingsToSiteDir(mappings in(ScalaUnidoc, packageDoc), "latest/scaladoc") ++
+    site.addMappingsToSiteDir(mappings in(JavaUnidoc, packageDoc), "latest/javadoc") ++
+    Seq(
+      sitePropsSetting, 
+      writeSitePropsTask,
+
+      crossPaths := false,
+      publishArtifact in Compile := false,
+      doc in Compile <<= (doc in Compile) 
+                            dependsOn (unidoc in Compile) 
+                            dependsOn (writeSiteProps in Compile)
+                            dependsOn (makeSite in Compile)
+    )
+  }
+
+  lazy val pamflet = settings ++ Seq(site.pamfletSupport())
+
+  lazy val sitePropsSetting = siteProps := {
     val props = new Properties()
     props.setProperty("version", version.value)
     props.setProperty("gitsha", gitHeadCommit.value.getOrElse(""))
@@ -35,28 +55,8 @@ object Docs {
     props
   }
 
-  lazy val writeSitepropsTask = writeSiteprops := {
-    Util.writeProps(siteprops.value, "template", "sbt generated properties", (baseDirectory.value / "src" / "pamflet"))
+  lazy val writeSitePropsTask = writeSiteProps := {
+    Util.writeProps(siteProps.value, "template", "sbt generated properties", (baseDirectory.value / "src" / "pamflet"))
   }
-
-  lazy val docs = {
-    Unidoc.scalaJavaUnidocSettings ++
-    site.settings ++ site.publishSite() ++
-    site.addMappingsToSiteDir(mappings in(ScalaUnidoc, packageDoc), "latest/scaladoc") ++
-    site.addMappingsToSiteDir(mappings in(JavaUnidoc, packageDoc), "latest/javadoc") ++
-    Seq(
-      sitepropsSetting, 
-      writeSitepropsTask,
-
-      crossPaths := false,
-      publishArtifact in Compile := false,
-      doc in Compile <<= (doc in Compile) 
-                            dependsOn (unidoc in Compile) 
-                            dependsOn (makeSite in Compile)
-                            dependsOn (writeSiteprops)
-    )
-  }
-
-  lazy val pamflet = docs ++ Seq(site.pamfletSupport())
 }
 

@@ -23,8 +23,7 @@ object Tools {
   import spray.revolver.RevolverPlugin._
 
   lazy val runnable = Revolver.settings ++ Seq(
-    fork := true,
-    Packaging.dpkgVersion
+    fork := true
   )
 }
 

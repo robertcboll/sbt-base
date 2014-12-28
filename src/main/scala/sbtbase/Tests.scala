@@ -13,7 +13,7 @@ object Tests {
 
   import Langs.{Java, Scala}
 
-  def all(lang: Language) = tests(lang, Test) ++ 
+  def settings(lang: Language) = tests(lang, Test) ++ 
                             tests(lang, IntegrationTest) ++
                             tests(lang, AcceptanceTest) ++
                             inConfig(AcceptanceTest)(Defaults.testSettings) ++
@@ -23,17 +23,13 @@ object Tests {
     lang match {
       case Java => Seq(
         libraryDependencies ++= Seq(
-          "com.novocode" % "junit-interface" % "0.11" % scope,
-          "pl.pragmatists" % "JUnitParams" % "1.0.3" % scope
+          "com.novocode" % "junit-interface" % "0.11" % scope
         ),
         testOptions <+= (target in scope) map {
           t => sbt.Tests.Argument(TestFrameworks.JUnit, "-v")
         }
       )
       case Scala => Seq(
-        libraryDependencies ++= Seq(
-          "org.scalatest" %% "scalatest" % "2.2.2" % scope
-        ),
         testOptions <+= (target in scope) map {
           t => sbt.Tests.Argument("-oD", "-u", s"$t/test-reports")
         }

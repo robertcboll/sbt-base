@@ -12,13 +12,13 @@ trait Language {
 object Langs {
 
   object Java extends Language {
-    override def settings = Settings.all(Java)
-    override def tests = Tests.all(Java)
+    override def settings = Settings.settings(Java)
+    override def tests = Tests.settings(Java)
   }
 
   object Scala extends Language {
-    override def settings = Settings.all(Scala)
-    override def tests = Tests.all(Scala)
+    override def settings = Settings.settings(Scala)
+    override def tests = Tests.settings(Scala)
   }
 }
 
