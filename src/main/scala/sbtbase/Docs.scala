@@ -30,7 +30,7 @@ object Docs {
     props.setProperty("version", version.value)
     props.setProperty("gitsha", gitHeadCommit.value.getOrElse(""))
     props.setProperty("organization", organization.value)
-    props.setProperty("name", name.value)
+    props.setProperty("project_name", name.value)
 
     props
   }
