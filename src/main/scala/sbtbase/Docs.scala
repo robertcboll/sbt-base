@@ -53,7 +53,7 @@ object Docs {
       doc in Compile <<= (doc in Compile) 
                             dependsOn (unidoc in Compile) 
                             dependsOn (makeSite in Compile)
-                            dependsOn (writeSitepropsTask)
+                            dependsOn (writeSiteprops)
     )
   }
 
