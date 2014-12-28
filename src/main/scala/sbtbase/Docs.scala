@@ -49,8 +49,6 @@ object Docs {
     val props = new Properties()
     props.setProperty("version", version.value)
     props.setProperty("gitsha", gitHeadCommit.value.getOrElse(""))
-    props.setProperty("organization", organization.value)
-    props.setProperty("project_name", name.value)
 
     props
   }
