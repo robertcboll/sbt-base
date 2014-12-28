@@ -36,7 +36,7 @@ object Docs {
   }
 
   lazy val writeSitepropsTask = writeSiteprops := {
-    Util.writeProps(siteprops.value, "template", "sbt generated properties", file("src/pamflet"))
+    Util.writeProps(siteprops.value, "template", "sbt generated properties", (baseDirectory.value / "src" / "pamflet"))
   }
 
   lazy val docs = {
