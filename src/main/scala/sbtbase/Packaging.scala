@@ -31,24 +31,17 @@ object Packaging {
     props.setProperty("release", git.baseVersion.value)
     props.setProperty("gitsha", gitHeadCommit.value.getOrElse(""))
     
-    writeProps(props, "_version", "sbt generated version properties", target.value)
+    Util.writeProps(props, "_version", "sbt generated version properties", target.value)
   }
 
   lazy val writeDpkg = writeDpkgTask := {
     val props = new Properties()
     props.setProperty("dpkg", (version in Linux).value)
 
-    writeProps(props, "_dpkg", "sbt generated dpkg properties", target.value)
+    Util.writeProps(props, "_dpkg", "sbt generated dpkg properties", target.value)
   }
 
   lazy val dpkgVersion = (version in Linux) := versionPrefix() + version.value
-
-  private[this] def writeProps(props: Properties, filename: String, comment: String, target: File) = {
-    target.mkdirs()
-    val file = new File(target, s"$filename.properties")
-    val out = new FileOutputStream(file)
-    props.store(out, s" $comment") 
-  }
 
   private[this] def versionPrefix(): String = {
     val option = sys.props.get("build_number")
