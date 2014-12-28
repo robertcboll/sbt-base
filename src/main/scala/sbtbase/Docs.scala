@@ -36,10 +36,10 @@ object Docs {
 
       crossPaths := false,
       publishArtifact in Compile := false,
-      doc in Compile <<= (doc in Compile) 
-                            dependsOn (unidoc in Compile) 
-                            dependsOn (writeSiteProps in Compile)
-                            dependsOn (makeSite in Compile)
+      doc in Compile <<= (doc in Compile) dependsOn (unidoc in Compile) 
+                                          dependsOn (makeSite in Compile),
+      makeSite <<= makeSite dependsOn writeSiteProps,
+      publish in Compile <<= (publish in compile) dependsOn (writeSiteProps in Compile)
     )
   }
 
