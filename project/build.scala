@@ -20,6 +20,7 @@ object Build extends sbt.Build {
     .settings(dependencyOverrides += "org.clapper" %% "scalasti" % "2.0.0")
     .settings(Dependencies.plugins: _*)
     .dependsOn(RootProject(uri("https://github.com/robertcboll/sbt-native-packager.git#1.0.0-rb")))
+    .dependsOn(ProjectRef(uri("https://github.com/n8han/giter8.git#7e18719d6b8504f0c0ada1c8931725142e9054fb"), "giter8-scaffold"))
 
   object Dependencies {
 
@@ -27,14 +28,13 @@ object Build extends sbt.Build {
       addSbtPlugin("io.spray" % "sbt-revolver" % "0.7.2"),
 
       addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "0.6.4"),
-      addSbtPlugin("net.databinder.giter8" % "giter8-scaffold" % "0.6.6"),
 
       /* docs and site */
       addSbtPlugin("com.eed3si9n" % "sbt-unidoc" % "0.3.1"),
       addSbtPlugin("com.typesafe.sbt" % "sbt-site" % "0.8.1"),
 
       /* packaging */
-      //addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "0.7-3bae1fd61adc96e124577c939779edef129bb9dd"),
+      //addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.0.0-M3"),
 
       /* analysis tools */
       addSbtPlugin("de.johoop" % "jacoco4sbt" % "2.1.6"),
