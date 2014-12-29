@@ -43,7 +43,7 @@ object Docs {
     )
   }
 
-  lazy val pamflet = Seq(site.pamfletSupport())
+  lazy val pamflet = site.pamfletSupport()
 
   lazy val sitePropsSetting = siteProps := {
     val props = new Properties()
