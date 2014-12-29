@@ -16,7 +16,7 @@ object Build extends sbt.Build {
     )
 
   lazy val native = RootProject(
-    uri("https://github.com/sbt/sbt-native-packager.git#ae7c5d5f488607ce6b5a9adad0db3fe0b535df0f"))
+    uri("https://github.com/robertcboll/sbt-native-packager.git#56f00095f474dbaeafad25b5bf3d8ff55d508e06"))
   
   lazy val giter8 = ProjectRef(
     uri("https://github.com/n8han/giter8.git#7e18719d6b8504f0c0ada1c8931725142e9054fb"), "giter8-scaffold")
