@@ -33,7 +33,7 @@ object Build extends sbt.Build {
       addSbtPlugin("com.typesafe.sbt" % "sbt-site" % "0.8.1"),
 
       /* packaging */
-      addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "0.8.0-RC2"),
+      addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "0.7-3bae1fd61adc96e124577c939779edef129bb9dd"),
 
       /* analysis tools */
       addSbtPlugin("de.johoop" % "jacoco4sbt" % "2.1.6"),

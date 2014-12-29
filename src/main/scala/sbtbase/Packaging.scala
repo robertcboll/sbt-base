@@ -19,19 +19,19 @@ object Packaging {
   import Git.git
 
   import com.typesafe.sbt.{SbtNativePackager => Packager}
-  import Packager.NativePackagerKeys._
+  import Packager._
   import Packager.Linux
   import Packager.Debian
 
   import java.util.Properties
   import java.io.{File, FileOutputStream}
 
-  val settings: Seq[sbt.Def.Setting[_]] = Seq(
+  val settings = Seq(
     versionPropsSetting,
     writeVersionPropsTask, 
     linuxVersionSetting,
     publish <<= publish dependsOn writeVersionProps
-    )
+  )
   
   lazy val versionPropsSetting = versionProps := {
     val props = new Properties()
