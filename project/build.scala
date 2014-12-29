@@ -15,11 +15,16 @@ object Build extends sbt.Build {
       scalacOptions := Seq("-encoding", "UTF-8", "-deprecation", "-feature", "-unchecked", "-Xlint")
     )
 
+  lazy val native = RootProject(
+    uri("https://github.com/sbt/sbt-native-packager.git#ae7c5d5f488607ce6b5a9adad0db3fe0b535df0f"))
+  
+  lazy val giter8 = ProjectRef(
+    uri("https://github.com/n8han/giter8.git#7e18719d6b8504f0c0ada1c8931725142e9054fb"), "giter8-scaffold")
+
   lazy val root = Project(id = "sbt-base", base = file("."))
     .settings(sbtPlugin := true)
     .settings(Dependencies.plugins: _*)
-    .dependsOn(RootProject(uri("https://github.com/robertcboll/sbt-native-packager.git#1.0.0-rb")))
-    .dependsOn(ProjectRef(uri("https://github.com/n8han/giter8.git#7e18719d6b8504f0c0ada1c8931725142e9054fb"), "giter8-scaffold"))
+    .dependsOn(native, giter8)
 
   object Dependencies {
 
