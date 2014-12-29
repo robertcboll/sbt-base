@@ -19,6 +19,7 @@ object Build extends sbt.Build {
     .settings(sbtPlugin := true)
     .settings(dependencyOverrides += "org.clapper" %% "scalasti" % "2.0.0")
     .settings(Dependencies.plugins: _*)
+    .dependsOn(RootProject(uri("https://github.com/robertcboll/sbt-native-packager.git#1.0.0-rb")))
 
   object Dependencies {
 
@@ -33,7 +34,7 @@ object Build extends sbt.Build {
       addSbtPlugin("com.typesafe.sbt" % "sbt-site" % "0.8.1"),
 
       /* packaging */
-      addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "0.7-3bae1fd61adc96e124577c939779edef129bb9dd"),
+      //addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "0.7-3bae1fd61adc96e124577c939779edef129bb9dd"),
 
       /* analysis tools */
       addSbtPlugin("de.johoop" % "jacoco4sbt" % "2.1.6"),

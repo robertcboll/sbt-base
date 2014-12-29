@@ -19,9 +19,7 @@ object Packaging {
   import Git.git
 
   import com.typesafe.sbt.{SbtNativePackager => Packager}
-  import Packager._
   import Packager.Linux
-  import Packager.Debian
 
   import java.util.Properties
   import java.io.{File, FileOutputStream}
