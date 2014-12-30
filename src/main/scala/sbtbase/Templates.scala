@@ -44,7 +44,7 @@ object Templates {
                   deps: ClasspathDep[ProjectReference]*): Project = {
     Project(id = id, base = file(id))
       .dependsOn(deps.toList: _*)
-      .configs(IntegrationTest, AcceptanceTest)
+      .configs(IntegrationTest.extend(Test), AcceptanceTest)
       .settings(lang.settings: _*)
       .settings(lang.tests: _*)
   }
