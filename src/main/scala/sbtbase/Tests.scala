@@ -7,7 +7,6 @@ object Tests {
 
   object Keys {
     lazy val AcceptanceTest = config("at").extend(Test)
-    lazy val AllTests = "it,at,test"
   }
 
   import Keys.AcceptanceTest
