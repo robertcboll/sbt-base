@@ -6,7 +6,7 @@ object Build extends sbt.Build {
   import com.typesafe.sbt.SbtGit._
   import GitKeys._
 
-  override lazy val settings = super.settings ++ versionWithGit ++ flywayResolver ++
+  override lazy val settings = super.settings ++ versionWithGit ++
     Seq(
       organization := "sbtbase",
       name := "sbt-base",
