@@ -16,13 +16,13 @@ object Migrations extends Plugin {
   lazy val migrations = inConfig(Migration)(Defaults.configSettings) ++ Seq(
     ivyConfigurations += Migration,
 
-    version in migr8 := "3.2.2-SNAPSHOT",
+    version in migr8 := "1.0",
     environment in migr8 := sys.props.get("migr8.env"),
     mainClass in migr8 := Some("org.apache.ibatis.migration.Migrator"),
 
     fullClasspath in migr8 <<= fullClasspath in Migration,
 
-    libraryDependencies += "org.mybatis" % "mybatis-migrations" % (version in migr8).value % Migration,
+    libraryDependencies += "com.ondeck.migr8" % "migr8" % (version in migr8).value % Migration,
 
     migr8 := {
       val main = (mainClass in migr8).value getOrElse ""
