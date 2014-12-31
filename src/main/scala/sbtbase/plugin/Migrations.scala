@@ -7,7 +7,7 @@ object Migrations extends Plugin {
 
   object Keys {
     val migr8 = InputKey[Unit]("migr8", "database migrations")
-    val environment = SettingKey[Option[String]]("environment", "migr8 environment.")
+    val environment = SettingKey[Option[String]]("environment", "migr8 environment")
     val Migration = config("migrations")
   }
 

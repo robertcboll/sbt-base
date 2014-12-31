@@ -8,18 +8,14 @@ object Build extends sbt.Build {
 
   override lazy val settings = super.settings ++ versionWithGit ++ flywayResolver ++
     Seq(
-      organization := "robertcboll.sbtbase",
+      organization := "sbtbase",
       name := "sbt-base",
       publishMavenStyle := false,
       scalacOptions := Seq("-encoding", "UTF-8", "-deprecation", "-feature", "-unchecked", "-Xlint")
     )
 
-  lazy val flywayResolver = Seq(
-    resolvers += "Flyway" at "http://flywaydb.org/repo"
-  )
-
   lazy val native = RootProject(
-    uri("https://github.com/robertcboll/sbt-native-packager.git#56f00095f474dbaeafad25b5bf3d8ff55d508e06"))
+    uri("https://github.com/sbt/sbt-native-packager.git#9f330b800ec5a89abbda9e0d1df9ae5ab328fa39"))
   
   lazy val giter8 = ProjectRef(
     uri("https://github.com/n8han/giter8.git#7e18719d6b8504f0c0ada1c8931725142e9054fb"), "giter8-scaffold")
@@ -40,7 +36,6 @@ object Build extends sbt.Build {
       addSbtPlugin("com.eed3si9n" % "sbt-unidoc" % "0.3.1"),
       addSbtPlugin("com.typesafe.sbt" % "sbt-site" % "0.8.1"),
 
-      addSbtPlugin("org.flywaydb" % "flyway-sbt" % "3.1"),
       /* packaging */
       //addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.0.0-M3"),
 
