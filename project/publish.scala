@@ -3,7 +3,6 @@ import Keys._
 
 object Publish {
 
-  import sbtbase._
   import com.typesafe.sbt.SbtGit.GitKeys.gitHeadCommit
  
   val repoBase = "https://build.ondeck.local/artifactory/"
