@@ -6,40 +6,41 @@ import Keys._
 object Migrations extends Plugin {
 
   object Keys {
-    val migrate = InputKey[Unit]("migrate", "Perform database migrations")
-    val configFile = SettingKey[File]("configFile", "The migrations config file.")
+    val migr8 = InputKey[Unit]("migr8", "database migrations")
+    val environment = SettingKey[Option[String]]("environment", "migr8 environment.")
     val Migration = config("migrations")
   }
 
   import Keys._
 
   lazy val migrations = inConfig(Migration)(Defaults.configSettings) ++ Seq(
-    ivyConfigurations += Migration, 
+    ivyConfigurations += Migration,
 
-    version in migrate := "0.4",
-    configFile in migrate := file("migrations.conf"),
-    mainClass in migrate := Some("com.ondeck.migrations.cli.CommandLine"),
+    version in migr8 := "3.2.2-SNAPSHOT",
+    environment in migr8 := sys.props.get("migr8.env"),
+    mainClass in migr8 := Some("org.apache.ibatis.migration.Migrator"),
 
-    fullClasspath in migrate <<= fullClasspath in Migration,
+    fullClasspath in migr8 <<= fullClasspath in Migration,
 
-    libraryDependencies += "com.ondeck.migrations" % "migrations-cli" % (version in migrate).value % Migration,
+    libraryDependencies += "org.mybatis" % "mybatis-migrations" % (version in migr8).value % Migration,
 
-    migrate := {
-      val main = (mainClass in migrate).value getOrElse ""
-      val base = (baseDirectory in migrate).value
-      val cp = (fullClasspath in migrate).value
+    migr8 := {
+      val main = (mainClass in migr8).value getOrElse ""
+      val base = (baseDirectory in migr8).value
+      val cp = (fullClasspath in migr8).value
+
+      val env = (environment in migr8).value
       
       val input: Seq[String] = Def.spaceDelimited("<arg>").parsed
-      val args: Seq[String] = input ++ Seq("-c", (configFile in migrate).value.getPath())
-      
-      val mig = Migrator(streams.value, outputStrategy.value, base.getPath, cp, main)
+      val args: Seq[String] = input
 
-      val prop: Option[String] = sys.props.get("config.env")
-      if (!prop.isEmpty) mig.run(args ++ Seq("-e", prop.get))        
+      val mig = new Migrator(streams.value.log, outputStrategy.value, base.getPath, cp.files, main)
+
+      if (!env.isEmpty) mig.run(args ++ Seq(s"--env=${env.get}"))
       else mig.run(args)
+      println()
     }
   )
-
 
   class Migrator(log: Logger, 
                   outputStrategy: Option[OutputStrategy], 
@@ -66,16 +67,6 @@ object Migrations extends Plugin {
     private[this] def ensure(path: String): Option[File] = {
       file(path).mkdirs
       Some(file(path))
-    }
-  }
-
-  object Migrator {
-    def apply(streams: TaskStreams, 
-              output: Option[OutputStrategy], 
-              base: String, 
-              cp: Classpath, 
-              main: String): Migrator = {
-      new Migrator(log = streams.log, outputStrategy = output, basedir = base, classpath = cp.files, main)
     }
   }
 }
