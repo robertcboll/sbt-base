@@ -36,8 +36,9 @@ object Migrations extends Plugin {
 
       val mig = new Migrator(streams.value.log, outputStrategy.value, base.getPath, cp.files, main)
 
-      if (!env.isEmpty) mig.run(args ++ Seq(s"--env=${env.get}"))        
+      if (!env.isEmpty) mig.run(args ++ Seq(s"--env=${env.get}"))
       else mig.run(args)
+      println()
     }
   )
 
