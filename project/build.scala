@@ -14,7 +14,7 @@ object Build extends sbt.Build {
       scalacOptions := Seq("-encoding", "UTF-8", "-deprecation", "-feature", "-unchecked", "-Xlint")
     )
 
-  lazy val native = RootProject(
+  lazy val packager = RootProject(
     uri("https://github.com/sbt/sbt-native-packager.git#9f330b800ec5a89abbda9e0d1df9ae5ab328fa39"))
   
   lazy val giter8 = ProjectRef(
@@ -23,7 +23,7 @@ object Build extends sbt.Build {
   lazy val root = Project(id = "sbt-base", base = file("."))
     .settings(sbtPlugin := true)
     .settings(Dependencies.plugins: _*)
-    .dependsOn(native, giter8)
+    .dependsOn(packager, giter8)
 
   object Dependencies {
 

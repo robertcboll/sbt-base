@@ -22,7 +22,7 @@ object Migrations extends Plugin {
 
     fullClasspath in migr8 <<= fullClasspath in Migration,
 
-    libraryDependencies += "com.ondeck.migr8" % "migr8" % (version in migr8).value % Migration,
+    libraryDependencies += "org.mybatis" % "mybatis-migrations" % (version in migr8).value % Migration,
 
     migr8 := {
       val main = (mainClass in migr8).value getOrElse ""
