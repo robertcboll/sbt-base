@@ -16,7 +16,7 @@ object Migrations extends Plugin {
   lazy val migrations = inConfig(Migration)(Defaults.configSettings) ++ Seq(
     ivyConfigurations += Migration,
 
-    version in migr8 := "1.0",
+    version in migr8 := "3.2.0",
     environment in migr8 := sys.props.get("migr8.env"),
     mainClass in migr8 := Some("org.apache.ibatis.migration.Migrator"),
 
