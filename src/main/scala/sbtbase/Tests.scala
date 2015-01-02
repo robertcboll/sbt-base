@@ -17,7 +17,9 @@ object Tests {
                             tests(lang, IntegrationTest) ++
                             tests(lang, AcceptanceTest) ++
                             inConfig(AcceptanceTest)(Defaults.testSettings) ++
-                            Defaults.itSettings ++ coverage
+                            Defaults.itSettings ++ coverage ++ Seq(
+                              libraryDependencies in IntegrationTest := (libraryDependencies in Test).value
+                              )
 
   def tests(lang: Language, scope: Configuration) = {
     lang match {

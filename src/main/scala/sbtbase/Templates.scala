@@ -47,7 +47,6 @@ object Templates {
       .configs(IntegrationTest.extend(Test), AcceptanceTest)
       .settings(lang.settings: _*)
       .settings(lang.tests: _*)
-      .settings(libraryDependencies in IntegrationTest := (libraryDependencies in Test).value)
   }
 
   private object Projects {

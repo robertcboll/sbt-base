@@ -8,7 +8,7 @@ object Settings {
   import Langs.{Java, Scala}
 
   lazy val common = {
-    Tools.style ++ Tools.findbugs
+    Tools.style ++ Tools.findbugs ++ Configs.settings
   }
 
   def settings(lang: Language) = {

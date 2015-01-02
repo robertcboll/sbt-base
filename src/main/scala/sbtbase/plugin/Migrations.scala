@@ -7,17 +7,16 @@ object Migrations extends Plugin {
 
   object Keys {
     val migr8 = InputKey[Unit]("migr8", "database migrations")
-    val environment = SettingKey[Option[String]]("environment", "migr8 environment")
     val Migration = config("migrations")
   }
 
+  import sbtbase.Configs.Keys._
   import Keys._
 
   lazy val migrations = inConfig(Migration)(Defaults.configSettings) ++ Seq(
     ivyConfigurations += Migration,
 
     version in migr8 := "3.2.0",
-    environment in migr8 := sys.props.get("migr8.env"),
     mainClass in migr8 := Some("org.apache.ibatis.migration.Migrator"),
 
     fullClasspath in migr8 <<= fullClasspath in Migration,
@@ -29,14 +28,14 @@ object Migrations extends Plugin {
       val base = (baseDirectory in migr8).value
       val cp = (fullClasspath in migr8).value
 
-      val env = (environment in migr8).value
+      val environment = env.value      
       
       val input: Seq[String] = Def.spaceDelimited("<arg>").parsed
       val args: Seq[String] = input
 
       val mig = new Migrator(streams.value.log, outputStrategy.value, base.getPath, cp.files, main)
 
-      if (!env.isEmpty) mig.run(args ++ Seq(s"--env=${env.get}"))
+      if (!environment.isEmpty) mig.run(args ++ Seq(s"--env=${environment.get}"))
       else mig.run(args)
       println()
     }
