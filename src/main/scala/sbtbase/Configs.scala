@@ -14,8 +14,8 @@ object Configs {
  
   lazy val settings = {
     Seq(
-      localEnv := Some("local"),
-      env := sys.props.get("config.env") orElse localEnv.value
+      localEnv in ThisBuild := Some("local"),
+      env in ThisBuild := sys.props.get("config.env") orElse localEnv.value
     )
   }
 }

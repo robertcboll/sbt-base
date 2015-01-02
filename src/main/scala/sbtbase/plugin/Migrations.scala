@@ -28,7 +28,7 @@ object Migrations extends Plugin {
       val base = (baseDirectory in migr8).value
       val cp = (fullClasspath in migr8).value
 
-      val environment = env.value      
+      val environment = (env in ThisBuild).value
       
       val input: Seq[String] = Def.spaceDelimited("<arg>").parsed
       val args: Seq[String] = input
